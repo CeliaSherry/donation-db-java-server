@@ -13,7 +13,7 @@ import javax.persistence.OneToMany;
 public class Institution{
 	@Id 
 	@GeneratedValue (strategy=GenerationType.IDENTITY)
-	private Integer institutionId;
+	private Integer id;
 	private String institutionName;
 	private String address;
 	private String city;
@@ -25,10 +25,10 @@ public class Institution{
 	
 	public Institution() {}
 	
-	public Institution(Integer institutionId, String institutionName, String address, 
+	public Institution(Integer id, String institutionName, String address, 
 			String city, String state, Integer zipCode, List<Contact> contacts) {
 		super();
-		this.institutionId = institutionId;
+		this.id = id;
 		this.institutionName = institutionName;
 		this.address = address;
 		this.city = city;
@@ -46,12 +46,12 @@ public class Institution{
 		this.contacts = institution.contacts;
 	}
 
-	public Integer getInstitutionId() {
-		return institutionId;
+	public Integer getid() {
+		return id;
 	}
 
-	public void setInstitutionId(Integer institutionId) {
-		this.institutionId = institutionId;
+	public void setid(Integer id) {
+		this.id = id;
 	}
 
 	public String getInstitutionName() {

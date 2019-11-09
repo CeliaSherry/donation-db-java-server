@@ -17,7 +17,7 @@ import javax.persistence.ManyToOne;
 public class Contact{
 	@Id 
 	@GeneratedValue (strategy=GenerationType.IDENTITY)
-	private Integer contactId;
+	private Integer id;
 	private String contactName;
 	private String phone;
 	private String email;
@@ -43,10 +43,10 @@ public class Contact{
 	
 	public Contact() {}
 	
-	public Contact(Integer contactId, String contactName, String phone, String email, String address, 
+	public Contact(Integer id, String contactName, String phone, String email, String address, 
 			String city, String state, Integer zipCode, List<Donor> donors, Institution institution) {
 		super();
-		this.contactId = contactId;
+		this.id = id;
 		this.contactName = contactName;
 		this.phone = phone;
 		this.email = email;
@@ -70,12 +70,12 @@ public class Contact{
 		this.institution = contact.institution;
 	}
 
-	public Integer getContactId() {
-		return this.contactId;
+	public Integer getId() {
+		return this.id;
 	}
 
-	public void setContactId(Integer contactId) {
-		this.contactId = contactId;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public String getContactName() {

@@ -17,7 +17,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Donation{
 	@Id 
 	@GeneratedValue (strategy=GenerationType.IDENTITY)
-	private Integer donationId;
+	private Integer id;
 	private Float donationAmount;
 	private Date donationDate;
 	private String note;
@@ -39,9 +39,9 @@ public class Donation{
 	
 	public Donation() {}
 	
-	public Donation(Integer donationId, Float donationAmount, Date donationDate, String note, List<ThankYou> thankYous, Donor donor) {
+	public Donation(Integer id, Float donationAmount, Date donationDate, String note, List<ThankYou> thankYous, Donor donor) {
 		super();
-		this.donationId = donationId;
+		this.id = id;
 		this.donationAmount = donationAmount;
 		this.donationDate = donationDate;
 		this.note = note;
@@ -58,12 +58,12 @@ public class Donation{
 		this.donor = donation.donor;
 	}
 
-	public Integer getDonationId() {
-		return donationId;
+	public Integer getid() {
+		return id;
 	}
 
-	public void setDonationId(Integer donationId) {
-		this.donationId = donationId;
+	public void setid(Integer id) {
+		this.id = id;
 	}
 
 	public Float getDonationAmount() {
