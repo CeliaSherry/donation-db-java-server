@@ -68,8 +68,8 @@ public class DonationService{
 	public void addThankYouToDonation(@PathVariable("donationId") Integer donationId, @PathVariable("thankYouId") Integer thankYouId) {
 		Donation donation = donationRepository.findById(donationId).get();
 		ThankYou thankYou = thankYouRepository.findById(thankYouId).get();
-		donation.addThankYou(thankYou);
-		donationRepository.save(donation);
+		thankYou.setDonation(donation);
+		thankYouRepository.save(thankYou);
 	}
 
 	

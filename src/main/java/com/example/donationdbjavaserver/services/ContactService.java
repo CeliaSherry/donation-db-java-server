@@ -73,8 +73,8 @@ public class ContactService{
 	public void addDonorToContact(@PathVariable("contactId") Integer contactId, @PathVariable("donorId") Integer donorId) {
 		Donor donor = donorRepository.findById(donorId).get();
 		Contact contact = contactRepository.findById(contactId).get();
-		contact.addDonor(donor);
-		contactRepository.save(contact);
+		donor.setContact(contact);
+		donorRepository.save(donor);
 	}
 	
 	

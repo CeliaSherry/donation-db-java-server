@@ -74,7 +74,8 @@ public class InstitutionService{
 		Institution institution = institutionRepository.findById(institutionId).get();
 		Contact contact = contactRepository.findById(contactId).get();
 		institution.addContact(contact);
-		institutionRepository.save(institution);
+		contact.setInstitution(institution);
+		contactRepository.save(contact);
 	}
 	
 }
