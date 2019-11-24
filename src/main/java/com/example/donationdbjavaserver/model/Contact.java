@@ -24,7 +24,7 @@ public class Contact{
 	private String address;
 	private String city;
 	private String state;
-	private Integer zipCode;
+	private String zipCode;
 	
 	@OneToMany(mappedBy="contact")
 	private List<Donor> donors = new ArrayList<>();
@@ -44,7 +44,7 @@ public class Contact{
 	public Contact() {}
 	
 	public Contact(Integer id, String contactName, String phone, String email, String address, 
-			String city, String state, Integer zipCode, List<Donor> donors, Institution institution) {
+			String city, String state, String zipCode, List<Donor> donors, Institution institution) {
 		super();
 		this.id = id;
 		this.contactName = contactName;
@@ -126,11 +126,11 @@ public class Contact{
 		this.state = state;
 	}
 
-	public Integer getZipCode() {
+	public String getZipCode() {
 		return zipCode;
 	}
 
-	public void setZipCode(Integer zipCode) {
+	public void setZipCode(String zipCode) {
 		this.zipCode = zipCode;
 	}
 	
