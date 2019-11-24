@@ -77,4 +77,11 @@ public class DonorService{
 		donationRepository.save(donation);
 	}
 	
+	@PostMapping("/api/donor/{donorId}/donation")
+	public Donation createDonationForDonor(@PathVariable("donorId") Integer donorId, @RequestBody Donation donation) {
+		Donor donor = donorRepository.findById(donorId).get();
+		donation.setDonor(donor);
+		return donationRepository.save(donation);
+	}
+
 }
