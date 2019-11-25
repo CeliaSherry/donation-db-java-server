@@ -20,13 +20,11 @@ public class Institution{
 	private String state;
 	private String zipCode;
 	
-	@OneToMany(mappedBy="institution")
-	private List<Contact> contacts = new ArrayList<>();
 	
 	public Institution() {}
 	
 	public Institution(Integer id, String institutionName, String address, 
-			String city, String state, String zipCode, List<Contact> contacts) {
+			String city, String state, String zipCode) {
 		super();
 		this.id = id;
 		this.institutionName = institutionName;
@@ -34,7 +32,6 @@ public class Institution{
 		this.city = city;
 		this.state = state;
 		this.zipCode = zipCode;
-		this.contacts = contacts;
 	}
 	
 	public void set(Institution institution) {
@@ -43,7 +40,6 @@ public class Institution{
 		this.city = institution.city;
 		this.state = institution.state;
 		this.zipCode = institution.zipCode;
-		this.contacts = institution.contacts;
 	}
 
 	public Integer getid() {
@@ -92,18 +88,6 @@ public class Institution{
 
 	public void setZipCode(String zipCode) {
 		this.zipCode = zipCode;
-	}
-
-	public List<Contact> getContacts() {
-		return contacts;
-	}
-
-	public void setContacts(List<Contact> contacts) {
-		this.contacts = contacts;
-	}
-	
-	public void addContact(Contact contact) {
-		this.contacts.add(contact);
 	}
 	
 }

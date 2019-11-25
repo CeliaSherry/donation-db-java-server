@@ -29,7 +29,6 @@ public class Donor{
 	private List<Donation> donations = new ArrayList<>();
 	
 	@ManyToOne()
-	@JsonIgnore
 	private Contact contact;
 	
 	public Contact getContact() {

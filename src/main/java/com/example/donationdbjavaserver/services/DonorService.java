@@ -11,10 +11,14 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.donationdbjavaserver.model.Contact;
 import com.example.donationdbjavaserver.model.Donation;
 import com.example.donationdbjavaserver.model.Donor;
+import com.example.donationdbjavaserver.model.Institution;
+import com.example.donationdbjavaserver.repositories.ContactRepository;
 import com.example.donationdbjavaserver.repositories.DonationRepository;
 import com.example.donationdbjavaserver.repositories.DonorRepository;
+import com.example.donationdbjavaserver.repositories.InstitutionRepository;
 
 @RestController
 @CrossOrigin(origins="http://localhost:3000", allowCredentials="true",allowedHeaders="*")
@@ -25,6 +29,12 @@ public class DonorService{
 	
 	@Autowired
 	DonationRepository donationRepository;
+	
+	@Autowired
+	InstitutionRepository institutionRepository;
+	
+	@Autowired
+	ContactRepository contactRepository;
 	
 	@GetMapping("/api/donors")
 	public List<Donor> findAllDonors() {
@@ -82,6 +92,20 @@ public class DonorService{
 		Donor donor = donorRepository.findById(donorId).get();
 		donation.setDonor(donor);
 		return donationRepository.save(donation);
+	}
+	
+	@PostMapping("/api/donors/with_details")
+	public Donor createDonorWithDetails(@RequestBody Donor donor) {
+		if(donor.getContact() != null && donor.getContact().getInstitution() != null) {
+		Institution institution = institutionRepository.save(donor.getContact().getInstitution());
+		donor.getContact().setInstitution(institution);
+		}
+		if(donor.getContact() != null ) {
+		   Contact contact = contactRepository.save(donor.getContact());
+		   donor.setContact(contact);
+		}
+		
+		return donorRepository.save(donor);
 	}
 
 }

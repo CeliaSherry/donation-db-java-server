@@ -73,7 +73,6 @@ public class InstitutionService{
 	public void addContactToInstitution(@PathVariable("institutionId") Integer institutionId, @PathVariable("contactId") Integer contactId) {
 		Institution institution = institutionRepository.findById(institutionId).get();
 		Contact contact = contactRepository.findById(contactId).get();
-		institution.addContact(contact);
 		contact.setInstitution(institution);
 		contactRepository.save(contact);
 	}
