@@ -1,16 +1,12 @@
 package com.example.donationdbjavaserver.model;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity 
 public class Donor{
@@ -25,8 +21,6 @@ public class Donor{
 	private String state;
 	private String zipCode;
 	
-	@OneToMany(mappedBy="donor")
-	private List<Donation> donations = new ArrayList<>();
 	
 	@ManyToOne()
 	private Contact contact;
@@ -42,7 +36,7 @@ public class Donor{
 	public Donor() {}
 	
 	public Donor(Integer id, String donorName, String phone, String email, String address, 
-			String city, String state, String zipCode, List<Donation> donations, Contact contact) {
+			String city, String state, String zipCode, Contact contact) {
 		super();
 		this.id = id;
 		this.donorName = donorName;
@@ -52,7 +46,6 @@ public class Donor{
 		this.city = city;
 		this.state = state;
 		this.zipCode = zipCode;
-		this.donations = donations;
 		this.contact = contact;
 	}
 	
@@ -64,7 +57,6 @@ public class Donor{
 		this.city = donor.city;
 		this.state = donor.state;
 		this.zipCode = donor.zipCode;
-		this.donations = donor.donations;
 		this.contact = donor.contact;
 	}
 
@@ -131,18 +123,5 @@ public class Donor{
 	public void setZipCode(String zipCode) {
 		this.zipCode = zipCode;
 	}
-	
-	public List<Donation> getDonations() {
-		return donations;
-	}
-	
-	public void setDonations(List<Donation> donations) {
-		this.donations = donations;
-	}
-	
-	public void addDonation(Donation donation) {
-		this.donations.add(donation);
-	}
-	
 	
 }

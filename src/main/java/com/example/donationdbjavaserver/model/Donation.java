@@ -26,7 +26,6 @@ public class Donation{
 	private List<ThankYou> thankYous = new ArrayList<>();
 	
 	@ManyToOne()
-	@JsonIgnore
 	private Donor donor;
 	
 	public Donor getDonor() {
