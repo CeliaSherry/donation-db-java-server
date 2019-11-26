@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.donationdbjavaserver.model.Contact;
 import com.example.donationdbjavaserver.model.Donor;
+import com.example.donationdbjavaserver.model.Institution;
 import com.example.donationdbjavaserver.repositories.ContactRepository;
 import com.example.donationdbjavaserver.repositories.DonorRepository;
+import com.example.donationdbjavaserver.repositories.InstitutionRepository;
 
 @RestController
 @CrossOrigin(origins="http://localhost:3000", allowCredentials="true",allowedHeaders="*")
@@ -25,6 +27,9 @@ public class ContactService{
 	
 	@Autowired
 	DonorRepository donorRepository;
+	
+	@Autowired
+	InstitutionRepository institutionRepository;
 	
 	@GetMapping("/api/contacts")
 	public List<Contact> findAllContacts() {
@@ -49,6 +54,11 @@ public class ContactService{
 	
 	@PostMapping("/api/contacts")
 	public Contact createContact(@RequestBody Contact contact) {
+		if(contact.getInstitution() != null) {
+			Institution institution = institutionRepository.save(contact.getInstitution());
+			contact.setInstitution(institution);
+			
+		}
 		return contactRepository.save(contact);
 	}
 	
