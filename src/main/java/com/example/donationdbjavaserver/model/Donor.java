@@ -1,6 +1,8 @@
 package com.example.donationdbjavaserver.model;
 
 
+import java.util.Collections;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,7 +11,7 @@ import javax.persistence.ManyToOne;
 
 
 @Entity 
-public class Donor{
+public class Donor {
 	@Id 
 	@GeneratedValue (strategy=GenerationType.IDENTITY)
 	private Integer id;
@@ -123,5 +125,6 @@ public class Donor{
 	public void setZipCode(String zipCode) {
 		this.zipCode = zipCode;
 	}
-	
+
+
 }

@@ -1,4 +1,5 @@
 package com.example.donationdbjavaserver.services;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.donationdbjavaserver.model.Contact;
 import com.example.donationdbjavaserver.model.Donation;
 import com.example.donationdbjavaserver.model.Donor;
+import com.example.donationdbjavaserver.model.DonorComparison;
 import com.example.donationdbjavaserver.model.Institution;
 import com.example.donationdbjavaserver.repositories.ContactRepository;
 import com.example.donationdbjavaserver.repositories.DonationRepository;
@@ -35,11 +37,23 @@ public class DonorService{
 	
 	@Autowired
 	ContactRepository contactRepository;
-	
+
+//	@GetMapping("/api/donors")
+//	public List<Donor> findAllDonors() {
+//		return (List<Donor>) donorRepository.findAll();
+//	}
+
 	@GetMapping("/api/donors")
 	public List<Donor> findAllDonors() {
-		return (List<Donor>) donorRepository.findAll();
+		//Collections.sort((List<Donor>) donorRepository.findAll(), new DonorComparison());
+		((List<Donor>) donorRepository.findAll()).sort(new DonorComparison());
+		return (List<Donor>)donorRepository.findAll();
 	}
+
+//	@GetMapping("/api/donors/nameSort")
+//	public List<Donor> findDonorsSortedByName() {
+//		return (List<Donor>) donorRepository.findAll();
+//	}
 	
 	@GetMapping("/api/donors/{donorId}")
 	public Donor findDonorById(@PathVariable("donorId") Integer id) {
