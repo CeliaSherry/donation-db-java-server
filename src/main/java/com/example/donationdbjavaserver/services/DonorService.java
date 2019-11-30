@@ -48,7 +48,12 @@ public class DonorService{
 	public List<Donor> findAllDonors(@RequestParam(defaultValue = "unordered", required = false) String sortOrder) {
 	if(sortOrder.equals("ascending")){
 		List<Donor> donorList = ((List<Donor>) donorRepository.findAll());
-		donorList.sort(new DonorComparison());
+		donorList.sort(new DonorComparison(true));
+		return donorList;
+	}
+	else if(sortOrder.equals(("descending"))){
+		List<Donor> donorList = ((List<Donor>) donorRepository.findAll());
+		donorList.sort(new DonorComparison(false));
 		return donorList;
 	}
 		return (List<Donor>) donorRepository.findAll();
