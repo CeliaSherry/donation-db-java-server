@@ -21,6 +21,9 @@ public interface DonorRepository extends CrudRepository<Donor, Integer> {
 	@Query("SELECT donor from Donor donor")
 	public List<Donor> findAllDonors();
 
+//	@Query("SELECT donor from Donor donor order by donor.donorName")
+//	public List<Donor> findAllDonors();
+
 
 //	@Query("SELECT donor from Donor donor order by donor.donorName desc")
 //	public List<Donor> findAllDonors();

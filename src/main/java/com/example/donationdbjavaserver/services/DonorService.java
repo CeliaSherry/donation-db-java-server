@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.donationdbjavaserver.model.Contact;
@@ -38,21 +39,36 @@ public class DonorService{
 	@Autowired
 	ContactRepository contactRepository;
 
+
 //	@GetMapping("/api/donors")
 //	public List<Donor> findAllDonors() {
 //		return (List<Donor>) donorRepository.findAll();
-//	}
 
 	@GetMapping("/api/donors")
-	public List<Donor> findAllDonors() {
-		//Collections.sort((List<Donor>) donorRepository.findAll(), new DonorComparison());
-		((List<Donor>) donorRepository.findAll()).sort(new DonorComparison());
-		return (List<Donor>)donorRepository.findAll();
+	public List<Donor> findAllDonors(@RequestParam(defaultValue = "unordered", required = false) String sortOrder) {
+	if(sortOrder.equals("ascending")){
+		List<Donor> donorList = ((List<Donor>) donorRepository.findAll());
+		donorList.sort(new DonorComparison());
+		return donorList;
 	}
+		return (List<Donor>) donorRepository.findAll();
+	}
+
+//	@GetMapping("/api/donors")
+//	public List<Donor> findAllDonors() {
+//		//Collections.sort((List<Donor>) donorRepository.findAll(), new DonorComparison());
+//		List<Donor> donorList1 = ((List<Donor>) donorRepository.findAll());
+//		donorList1.sort(new DonorComparison());
+//		//return (List<Donor>)donorRepository.findAll();
+//		return donorList1;
+//	}
 
 //	@GetMapping("/api/donors/nameSort")
 //	public List<Donor> findDonorsSortedByName() {
-//		return (List<Donor>) donorRepository.findAll();
+//		//Collections.sort((List<Donor>) donorRepository.findAll(), new DonorComparison());
+//		List<Donor> donorList1 = ((List<Donor>) donorRepository.findAll());
+//		donorList1.sort(new DonorComparison());
+//		return donorList1;
 //	}
 	
 	@GetMapping("/api/donors/{donorId}")
