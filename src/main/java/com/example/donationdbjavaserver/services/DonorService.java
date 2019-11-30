@@ -1,4 +1,5 @@
 package com.example.donationdbjavaserver.services;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -23,6 +24,8 @@ import com.example.donationdbjavaserver.repositories.DonationRepository;
 import com.example.donationdbjavaserver.repositories.DonorRepository;
 import com.example.donationdbjavaserver.repositories.InstitutionRepository;
 
+import javax.persistence.OrderBy;
+
 @RestController
 @CrossOrigin(origins="http://localhost:3000", allowCredentials="true",allowedHeaders="*")
 public class DonorService{
@@ -46,16 +49,23 @@ public class DonorService{
 
 	@GetMapping("/api/donors")
 	public List<Donor> findAllDonors(@RequestParam(defaultValue = "unordered", required = false) String sortOrder) {
+	 // List<Donor> tempList = (List<Donor>)donorRepository.findAll();
 		if(sortOrder != null) {
-			if(sortOrder.equals("ascending")){
-				List<Donor> donorList = ((List<Donor>) donorRepository.findAll());
-				donorList.sort(new DonorComparison(true));
-				return donorList;
-			}
+		  if(sortOrder.equals("ascending")){
+		  	List<Donor> response = donorRepository.findByOrderByDonorNameAsc();
+		    return  response;
+      }
+//			if(sortOrder.equals("ascending")){
+//				List<Donor> donorList = ((List<Donor>) donorRepository.findAll());
+//				donorList.sort(new DonorComparison(true));
+//				return donorList;
+//			}
 			else if(sortOrder.equals(("descending"))){
-				List<Donor> donorList = ((List<Donor>) donorRepository.findAll());
-				donorList.sort(new DonorComparison(false));
-				return donorList;
+				List<Donor> response = donorRepository.findByOrderByDonorNameDesc();
+				return  response;
+//				List<Donor> donorList = ((List<Donor>) donorRepository.findAll());
+//				donorList.sort(new DonorComparison(false));
+//				return donorList;
 			}
 		}
 

@@ -1,4 +1,6 @@
 package com.example.donationdbjavaserver.repositories;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
@@ -7,6 +9,8 @@ import org.springframework.data.repository.query.Param;
 
 import com.example.donationdbjavaserver.model.Contact;
 import com.example.donationdbjavaserver.model.Donor;
+
+import javax.persistence.OrderBy;
 
 public interface DonorRepository extends CrudRepository<Donor, Integer> {
 	
@@ -20,10 +24,14 @@ public interface DonorRepository extends CrudRepository<Donor, Integer> {
 	
 	@Query("SELECT donor from Donor donor")
 	public List<Donor> findAllDonors();
-//
-//	@Query("SELECT donor from Donor donor order by donor.donorName")
-//	public List<Donor> findAllDonors();
 
+
+
+	//@OrderBy("donorName")
+	//@Query("SELECT donor from Donor donor")
+	public List<Donor> findByOrderByDonorNameAsc();
+
+	public List<Donor> findByOrderByDonorNameDesc();
 
 //	@Query("SELECT donor from Donor donor order by donor.donorName desc")
 //	public List<Donor> findAllDonors();
