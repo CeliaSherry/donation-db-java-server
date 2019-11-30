@@ -46,6 +46,7 @@ public class DonorService{
 
 	@GetMapping("/api/donors")
 	public List<Donor> findAllDonors(@RequestParam(defaultValue = "unordered", required = false) String sortOrder) {
+		//System.out.println("hello");
 	if(sortOrder.equals("ascending")){
 		List<Donor> donorList = ((List<Donor>) donorRepository.findAll());
 		donorList.sort(new DonorComparison(true));
@@ -59,23 +60,23 @@ public class DonorService{
 		return (List<Donor>) donorRepository.findAll();
 	}
 
-//	@GetMapping("/api/donors")
-//	public List<Donor> findAllDonors() {
-//		//Collections.sort((List<Donor>) donorRepository.findAll(), new DonorComparison());
-//		List<Donor> donorList1 = ((List<Donor>) donorRepository.findAll());
-//		donorList1.sort(new DonorComparison());
-//		//return (List<Donor>)donorRepository.findAll();
-//		return donorList1;
-//	}
 
-//	@GetMapping("/api/donors/nameSort")
-//	public List<Donor> findDonorsSortedByName() {
-//		//Collections.sort((List<Donor>) donorRepository.findAll(), new DonorComparison());
-//		List<Donor> donorList1 = ((List<Donor>) donorRepository.findAll());
-//		donorList1.sort(new DonorComparison());
-//		return donorList1;
+//	@GetMapping("/api/donors{sortOrder}")
+//	public List<Donor> findAllDonors(@PathVariable("sortOrder") String sortOrder){ //(defaultValue = "unordered", required = false) String sortOrder) {
+////		System.out.println("hello");
+//		if(sortOrder.equals("ascending")){
+//			List<Donor> donorList = ((List<Donor>) donorRepository.findAll());
+//			donorList.sort(new DonorComparison(true));
+//			return donorList;
+//		}
+//		else if(sortOrder.equals(("descending"))){
+//			List<Donor> donorList = ((List<Donor>) donorRepository.findAll());
+//			donorList.sort(new DonorComparison(false));
+//			return donorList;
+//		}
+//		return (List<Donor>) donorRepository.findAll();
 //	}
-	
+//
 	@GetMapping("/api/donors/{donorId}")
 	public Donor findDonorById(@PathVariable("donorId") Integer id) {
 		Donor donor;
