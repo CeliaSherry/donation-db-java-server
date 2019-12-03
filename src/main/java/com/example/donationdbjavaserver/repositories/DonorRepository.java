@@ -18,6 +18,16 @@ public interface DonorRepository extends CrudRepository<Donor, Integer> {
 	public List<Donor> findDonorByName
 	(@Param("name") String name);
 	
+	@Query("SELECT donor FROM Donor donor "
+			+ "WHERE (donor.donorName LIKE %:name%) "
+			+ "AND (donor.email LIKE %:email%) AND (donor.phone LIKE %:phone%)"
+			+ " AND (donor.address LIKE %:address%) AND (donor.city LIKE %:city%)"
+			+ " AND (donor.state LIKE %:state%) AND (donor.zipCode LIKE %:zip%)")
+	public List<Donor> filterDonors
+	(@Param("name") String name, @Param("email") String email, @Param("phone") String phone, 
+	@Param("address") String address, @Param("city") String city, @Param("state") String state, @Param("zip") String zip);
+	//@Param("contact") String contact);
+	
 	@Query("SELECT donor from Donor donor")
 	public List<Donor> findAllDonors();
 	
