@@ -43,8 +43,8 @@ public class DonorService{
 		return (List<Donor>) donorRepository.findAll();
 	}
 	
-	@RequestMapping(value="/api/donors")
-	public List<Donor> filterDonors(
+	@RequestMapping(value="/api/donor/search")
+		public List<Donor> filterDonors(
 		@RequestParam(value = "name", required = false) String name,
 		@RequestParam(value = "email", required = false) String email,
 		@RequestParam(value = "phone", required = false) String phone,
