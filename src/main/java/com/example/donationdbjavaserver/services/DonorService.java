@@ -38,13 +38,8 @@ public class DonorService{
 	@Autowired
 	ContactRepository contactRepository;
 	
-	@GetMapping("/api/donors")
-	public List<Donor> findAllDonors() {
-		return (List<Donor>) donorRepository.findAll();
-	}
-	
-	@RequestMapping(value="/api/donor/search")
-		public List<Donor> filterDonors(
+	@RequestMapping(value="/api/donors")
+		public List<Donor> findAllDonors(
 		@RequestParam(value = "name", required = false) String name,
 		@RequestParam(value = "email", required = false) String email,
 		@RequestParam(value = "phone", required = false) String phone,
@@ -53,7 +48,12 @@ public class DonorService{
 		@RequestParam(value = "state", required = false) String state,
 		@RequestParam(value = "zip", required = false) String zip) {
 		//@RequestParam(value = "contact", required = false) String contact) {
-			return (List<Donor>) donorRepository.filterDonors(name, email, phone, address, city, state, zip);
+			if (name == null && email == null && phone == null && address == null && city == null && zip == null) {
+				return (List<Donor>) donorRepository.findAllDonors();
+			}
+			else {
+				return (List<Donor>) donorRepository.filterDonors(name, email, phone, address, city, state, zip);
+			}
 	}
 	
 	@GetMapping("/api/donors/{donorId}")
