@@ -1,11 +1,24 @@
 package com.example.donationdbjavaserver.model;
 
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
+import java.util.Objects;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 
 @Entity 
@@ -20,6 +33,12 @@ public class Donor{
 	private String city;
 	private String state;
 	private String zipCode;
+	
+	
+	@OneToMany(mappedBy="donor")
+    @JsonIgnore
+	private List<Donation> donations = new ArrayList<>();
+	
 	
 	
 	@ManyToOne()
@@ -124,4 +143,49 @@ public class Donor{
 		this.zipCode = zipCode;
 	}
 	
+	public double getTotalDonated() {
+		if(!this.donations.isEmpty()) {
+			return this.donations
+					.stream()
+					.mapToDouble(Donation::getDonationAmount)
+					.filter(Objects::nonNull)
+					.sum();
+		}
+		return 0;
+	}
+	
+	public long getTotalDonatedCount() {
+		if(!this.donations.isEmpty()) {
+			return this.donations
+					.stream()
+					.map(Donation::getDonationAmount)
+					.filter(Objects::nonNull)
+					.count();
+		}
+		return 0L;
+	}
+	
+	public Date getLastDonated() {
+		if(!this.donations.isEmpty()) {
+			return this.donations
+					.stream()
+					.map(Donation::getDonationDate)
+					.filter(Objects::nonNull)
+					.max(Date::compareTo)
+				    .orElse(null);
+		}
+		return null;
+	}
+	
+
+	
+
+	public  List<Donation> getDonations() {
+		return donations;
+	}
+
+
+	public void setDonations( List<Donation> donations) {
+		this.donations = donations;
+	}
 }
