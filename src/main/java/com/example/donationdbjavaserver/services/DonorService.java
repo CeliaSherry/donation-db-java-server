@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.donationdbjavaserver.model.Contact;
@@ -36,9 +38,22 @@ public class DonorService{
 	@Autowired
 	ContactRepository contactRepository;
 	
-	@GetMapping("/api/donors")
-	public List<Donor> findAllDonors() {
-		return (List<Donor>) donorRepository.findAll();
+	@RequestMapping(value="/api/donors")
+		public List<Donor> findAllDonors(
+		@RequestParam(value = "name", required = false) String name,
+		@RequestParam(value = "email", required = false) String email,
+		@RequestParam(value = "phone", required = false) String phone,
+		@RequestParam(value = "address", required = false) String address,
+		@RequestParam(value = "city", required = false) String city,
+		@RequestParam(value = "state", required = false) String state,
+		@RequestParam(value = "zip", required = false) String zip) {
+		//@RequestParam(value = "contact", required = false) String contact) {
+			if (name == null && email == null && phone == null && address == null && city == null && zip == null) {
+				return (List<Donor>) donorRepository.findAllDonors();
+			}
+			else {
+				return (List<Donor>) donorRepository.filterDonors(name, email, phone, address, city, state, zip);
+			}
 	}
 	
 	@GetMapping("/api/donors/{donorId}")
