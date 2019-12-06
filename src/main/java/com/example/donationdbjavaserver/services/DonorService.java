@@ -74,7 +74,12 @@ public class DonorService{
 	
 	@PostMapping("/api/donors")
 	public Donor createDonor(@RequestBody Donor donor) {
-		return donorRepository.save(donor);
+		try {
+			Donor existingDonor = donorRepository.findDonorByName(donor.getDonorName()).get(0);
+			return existingDonor;
+		} catch (Exception e) {
+			return donorRepository.save(donor);
+		}
 	}
 	
 	@PutMapping("/api/donor/{donorId}")
