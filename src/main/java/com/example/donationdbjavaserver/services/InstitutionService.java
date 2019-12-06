@@ -41,6 +41,17 @@ public class InstitutionService{
 		}
 		return institution;
 	}
+
+	@GetMapping("/api/institution/{institutionName}")
+	public Institution findInstitutionByName(@PathVariable("institutionName") String name) {
+		Institution institution;
+		try {
+			institution = institutionRepository.findInstitutionByName(name).get(0);
+		} catch (Exception e) {
+			return null;
+		}
+		return institution;
+	}
 	
 	@DeleteMapping("/api/institution/{institutionId}")
 	public void deleteInstitution(@PathVariable("institutionId") Integer id) {
