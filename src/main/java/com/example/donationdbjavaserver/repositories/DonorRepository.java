@@ -18,6 +18,10 @@ public interface DonorRepository extends CrudRepository<Donor, Integer> {
 	public List<Donor> findDonorByName
 	(@Param("name") String name);
 	
+	@Query("SELECT donor.id FROM Donor donor WHERE donor.donorName LIKE %:name%")
+	public List<Integer> findDonorIdByName
+	(@Param("name") String name);
+	
 	@Query("SELECT donor FROM Donor donor "
 			+ "WHERE (donor.donorName LIKE %:name%) "
 			+ "AND (donor.email LIKE %:email%) AND (donor.phone LIKE %:phone%)"
@@ -37,5 +41,8 @@ public interface DonorRepository extends CrudRepository<Donor, Integer> {
 	
 	@Query("SELECT donor FROM Donor donor WHERE contact_id=:id")
 	public List<Donor> findDonorsForContact (@Param("id") Integer id);
+	
+	@Query("SELECT donor.id FROM Donor donor WHERE contact_id in :id")
+	public List<Integer> findDonorIdsForContactIds (@Param("id") List<Integer> id);
 	
 }
