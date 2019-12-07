@@ -1,15 +1,12 @@
 package com.example.donationdbjavaserver.model;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
 
 @Entity 
@@ -20,9 +17,7 @@ public class Donation{
 	private Float donationAmount;
 	private Date donationDate;
 	private String note;
-	
-	@OneToMany(mappedBy="donation")
-	private List<ThankYou> thankYous = new ArrayList<>();
+	private boolean thankYou;
 	
 	@ManyToOne()
 	private Donor donor;
@@ -37,13 +32,13 @@ public class Donation{
 	
 	public Donation() {}
 	
-	public Donation(Integer id, Float donationAmount, Date donationDate, String note, List<ThankYou> thankYous, Donor donor) {
+	public Donation(Integer id, Float donationAmount, Date donationDate, String note, boolean thankYou, Donor donor) {
 		super();
 		this.id = id;
 		this.donationAmount = donationAmount;
 		this.donationDate = donationDate;
 		this.note = note;
-		this.thankYous = thankYous;
+		this.thankYou = thankYou;
 		this.donor = donor;
 		
 	}
@@ -52,7 +47,7 @@ public class Donation{
 		this.donationAmount = donation.donationAmount;
 		this.donationDate = donation.donationDate;
 		this.note = donation.note;
-		this.thankYous = donation.thankYous;
+		this.thankYou = donation.thankYou;
 		this.donor = donation.donor;
 	}
 
@@ -88,20 +83,13 @@ public class Donation{
 		this.note = note;
 	}
 
-	public List<ThankYou> getThankYous() {
-		return thankYous;
+	public boolean getThankYou() {
+		return thankYou;
 	}
 
-	public void setThankYous(List<ThankYou> thankYous) {
-		this.thankYous = thankYous;
+	public void setThankYou(boolean thankYou) {
+		this.thankYou = thankYou;
 	}
-	
-	public void addThankYou(ThankYou thankYou) {
-		this.thankYous.add(thankYou);
-	}
-
-	
-	
 	
 	
 }

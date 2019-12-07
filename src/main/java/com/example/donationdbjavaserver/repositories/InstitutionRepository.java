@@ -19,5 +19,17 @@ public interface InstitutionRepository extends CrudRepository<Institution, Integ
 	
 	@Query("SELECT institution from Institution institution")
 	public List<Institution> findAllInstitutions();
+
+	public List<Institution> findByOrderByInstitutionNameAsc();
+
+	public List<Institution> findByOrderByInstitutionNameDesc();
+
+	public List<Institution> findByOrderByStateAsc();
+
+	public List<Institution> findByOrderByStateDesc();
+	
+	@Query("SELECT institution.id FROM Institution institution WHERE institution.institutionName like %:name%")
+	public List<Integer> findInstitutionIdsByName
+	(@Param("name") String name);
 	
 }
