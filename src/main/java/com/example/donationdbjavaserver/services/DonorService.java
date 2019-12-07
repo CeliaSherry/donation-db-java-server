@@ -85,6 +85,17 @@ public class DonorService{
 		} catch (Exception e) {
 			return null;
 		}
+		
+		if(newDonor.getContact() != null) {
+			if(newDonor.getContact().getId() != null) {
+				Contact contact = contactRepository.findById(newDonor.getContact().getId()).get();
+				contact.set(newDonor.getContact());
+				contactRepository.save(contact);
+			}else {
+				contactRepository.save(newDonor.getContact());
+			}
+		}
+		
 		donor.set(newDonor);
 		return donorRepository.save(donor);
 	}
