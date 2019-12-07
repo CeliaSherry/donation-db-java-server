@@ -9,12 +9,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.donationdbjavaserver.model.Contact;
 import com.example.donationdbjavaserver.model.Institution;
 import com.example.donationdbjavaserver.repositories.ContactRepository;
 import com.example.donationdbjavaserver.repositories.InstitutionRepository;
+
+import javax.persistence.criteria.CriteriaBuilder;
 
 @RestController
 @CrossOrigin(origins="http://localhost:3000", allowCredentials="true",allowedHeaders="*")
@@ -27,7 +30,27 @@ public class InstitutionService{
 	ContactRepository contactRepository;
 	
 	@GetMapping("/api/institutions")
-	public List<Institution> findAllInstitution() {
+	public List<Institution> findAllInstitution(@RequestParam(defaultValue = "unordered", required = false) String sortParam) {
+		if (sortParam != null) {
+			switch (sortParam) {
+				case "ascendingName": {
+					List<Institution> response = institutionRepository.findByOrderByInstitutionNameAsc();
+					return response;
+				}
+				case ("descendingName"): {
+					List<Institution> response = institutionRepository.findByOrderByInstitutionNameDesc();
+					return response;
+				}
+				case ("ascendingState"): {
+					List<Institution> response = institutionRepository.findByOrderByStateAsc();
+					return response;
+				}
+				case ("descendingState"): {
+					List<Institution> response = institutionRepository.findByOrderByStateDesc();
+					return response;
+				}
+			}
+		}
 		return (List<Institution>) institutionRepository.findAll();
 	}
 	
