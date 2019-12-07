@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.donationdbjavaserver.model.Contact;
@@ -32,7 +33,31 @@ public class ContactService{
 	InstitutionRepository institutionRepository;
 	
 	@GetMapping("/api/contacts")
-	public List<Contact> findAllContacts() {
+	public List<Contact> findAllContacts(@RequestParam(defaultValue = "unordered", required = false) String sortParam) {
+		if (sortParam != null) {
+			switch (sortParam) {
+				case "ascendingName": {
+					List<Contact> response = contactRepository.findByOrderByContactNameAsc();
+					return response;
+				}
+				case ("descendingName"): {
+					List<Contact> response = contactRepository.findByOrderByContactNameDesc();
+					return response;
+				}
+				case ("ascendingState"): {
+					List<Contact> response = contactRepository.findByOrderByStateAsc();
+					return response;
+				}
+				case ("descendingState"): {
+					List<Contact> response = contactRepository.findByOrderByStateDesc();
+					return response;
+				}
+				case ("institution"): {
+					List<Contact> response = contactRepository.findByOrderByInstitutionAsc();
+					return response;
+				}
+			}
+		}
 		return (List<Contact>) contactRepository.findAll();
 	}
 	

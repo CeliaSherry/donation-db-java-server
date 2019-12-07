@@ -41,7 +41,7 @@ public class DonorService {
 
   @RequestMapping(value = "/api/donors")
   public List<Donor> findAllDonors(
-          @RequestParam(defaultValue = "unordered", required = false) String sortOrder,
+          @RequestParam(defaultValue = "unordered", required = false) String sortParam,
           @RequestParam(value = "name", required = false) String name,
           @RequestParam(value = "email", required = false) String email,
           @RequestParam(value = "phone", required = false) String phone,
@@ -51,18 +51,21 @@ public class DonorService {
           @RequestParam(value = "zip", required = false) String zip) {
     //@RequestParam(value = "contact", required = false) String contact) {
     if (name == null && email == null && phone == null && address == null && city == null && zip == null) {
-      if (sortOrder != null) {
-        if (sortOrder.equals("ascendingName")) {
-          List<Donor> response = donorRepository.findByOrderByDonorNameAsc();
-          return response;
-        } else if (sortOrder.equals(("descendingName"))) {
-          List<Donor> response = donorRepository.findByOrderByDonorNameDesc();
-          return response;
-        } else if (sortOrder.equals(("contact"))) {
-					List<Donor> response = donorRepository.findByOrderByContactAsc();
-					return response;
+      if (sortParam != null) {
+				switch (sortParam) {
+					case "ascendingName": {
+						List<Donor> response = donorRepository.findByOrderByDonorNameAsc();
+						return response;
+					}
+					case ("descendingName"): {
+						List<Donor> response = donorRepository.findByOrderByDonorNameDesc();
+						return response;
+					}
+					case ("contact"): {
+						List<Donor> response = donorRepository.findByOrderByContactAsc();
+						return response;
+					}
 				}
-
       }
       return (List<Donor>) donorRepository.findAllDonors();
     }
