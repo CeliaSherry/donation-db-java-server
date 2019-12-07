@@ -58,11 +58,8 @@ public class DonorService {
         } else if (sortOrder.equals(("descendingName"))) {
           List<Donor> response = donorRepository.findByOrderByDonorNameDesc();
           return response;
-        } else if (sortOrder.equals(("ascendingContact"))) {
+        } else if (sortOrder.equals(("contact"))) {
 					List<Donor> response = donorRepository.findByOrderByContactAsc();
-					return response;
-				} else if (sortOrder.equals(("descendingContact"))) {
-					List<Donor> response = donorRepository.findByOrderByContactDesc();
 					return response;
 				}
 
