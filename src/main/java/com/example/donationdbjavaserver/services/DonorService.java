@@ -69,6 +69,7 @@ public class DonorService{
 	
 	@DeleteMapping("/api/donor/{donorId}")
 	public void deleteDonor(@PathVariable("donorId") Integer id) {
+		donationRepository.deleteAll(donationRepository.findDonationsForDonor(id));
 		donorRepository.deleteById(id);
 	}
 	
