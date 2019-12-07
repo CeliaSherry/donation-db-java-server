@@ -34,6 +34,17 @@ public interface ContactRepository extends CrudRepository<Contact, Integer> {
 	
 	@Query("SELECT contact.id FROM Contact contact WHERE institution_id in :id")
 	public List<Integer> findContactsForInstitutionIds (@Param("id") List<Integer> id);
+
+	public List<Contact> findByOrderByContactNameAsc();
+
+	public List<Contact> findByOrderByContactNameDesc();
+
+	public List<Contact> findByOrderByStateAsc();
+
+	public List<Contact> findByOrderByStateDesc();
+
+	public List<Contact> findByOrderByInstitutionAsc();
+
 	
 	
 }
