@@ -17,12 +17,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.donationdbjavaserver.model.Donation;
 import com.example.donationdbjavaserver.model.Donor;
-import com.example.donationdbjavaserver.model.ThankYou;
 import com.example.donationdbjavaserver.repositories.InstitutionRepository;
 import com.example.donationdbjavaserver.repositories.DonorRepository;
 import com.example.donationdbjavaserver.repositories.ContactRepository;
 import com.example.donationdbjavaserver.repositories.DonationRepository;
-import com.example.donationdbjavaserver.repositories.ThankYouRepository;
 
 @RestController
 @CrossOrigin(origins="http://localhost:3000", allowCredentials="true",allowedHeaders="*")
@@ -39,8 +37,6 @@ public class DonationService{
 	@Autowired
 	InstitutionRepository institutionRepository;
 	
-	@Autowired
-	ThankYouRepository thankYouRepository;
 	
 	@RequestMapping(value="/api/donations")
 	public List<Donation> findAllDonations(
@@ -83,10 +79,9 @@ public class DonationService{
 					.collect(Collectors.toList());
 		if (searchedDonorIds.isEmpty()) {
 			searchedDonorIds.add(null);
-			System.out.println(searchedDonorIds);
 
 		}
-		return (List<Donation>) donationRepository.findDonationsForDonors(searchedDonorIds, donationMonth, donationYear);
+		return (List<Donation>) donationRepository.findDonationsForDonors(searchedDonorIds, donationMonth, donationYear, thanks);
 
 	}
 
@@ -122,14 +117,6 @@ public class DonationService{
 		}
 		donation.set(newDonation);
 		return donationRepository.save(donation);
-	}
-	
-	@PostMapping("/api/donation/{donationId}/thankYou/{thankYouId}")
-	public void addThankYouToDonation(@PathVariable("donationId") Integer donationId, @PathVariable("thankYouId") Integer thankYouId) {
-		Donation donation = donationRepository.findById(donationId).get();
-		ThankYou thankYou = thankYouRepository.findById(thankYouId).get();
-		thankYou.setDonation(donation);
-		thankYouRepository.save(thankYou);
 	}
 
 	
