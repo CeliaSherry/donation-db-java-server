@@ -95,7 +95,10 @@ public class ContactService{
 		} catch (Exception e) {
 			return null;
 		}
+		Institution institution = institutionRepository.save(newContact.getInstitution());
+		contact.setInstitution(institution);;
 		contact.set(newContact);
+		
 		return contactRepository.save(contact);
 	}
 	
