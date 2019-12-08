@@ -1,6 +1,8 @@
 package com.example.donationdbjavaserver.services;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -49,9 +51,9 @@ public class DonorService {
           @RequestParam(value = "address", required = false) String address,
           @RequestParam(value = "city", required = false) String city,
           @RequestParam(value = "state", required = false) String state,
-          @RequestParam(value = "zip", required = false) String zip) {
-    //@RequestParam(value = "contact", required = false) String contact) {
-    if (name == null && email == null && phone == null && address == null && city == null && zip == null) {
+          @RequestParam(value = "zip", required = false) String zip,
+	  	  @RequestParam(value = "contact", required = false) String contact) {
+    if (name == null && email == null && phone == null && address == null && city == null && zip == null && contact == null) {
       if (sortParam != null) {
 				switch (sortParam) {
 					case "ascendingName": {
@@ -70,7 +72,13 @@ public class DonorService {
       }
       return (List<Donor>) donorRepository.findAllDonors();
     }
-    return (List<Donor>) donorRepository.filterDonors(name, email, phone, address, city, state, zip);
+    List<Integer> contactIds = contactRepository.findContactIdByName(contact);
+    
+    if (contactIds.isEmpty()) {
+		Collections.emptyList();
+	}
+
+    return (List<Donor>) donorRepository.filterDonors(name, email, phone, address, city, state, zip, contactIds);
   }
 
 
