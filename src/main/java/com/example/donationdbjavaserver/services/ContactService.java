@@ -112,6 +112,13 @@ public class ContactService{
 		donorRepository.save(donor);
 	}
 	
+
+	@PostMapping("/api/contact/{contactId}/donor")
+	public Donor createDonorWithExistingContact(@PathVariable("contactId") Integer contactId,  @RequestBody Donor donor) {
+		Contact contact = contactRepository.findById(contactId).get();
+		donor.setContact(contact);
+		return donorRepository.save(donor);
+	}
 	
 	
 }

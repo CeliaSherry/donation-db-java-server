@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.donationdbjavaserver.model.Donation;
-import com.example.donationdbjavaserver.model.Donor;
 import com.example.donationdbjavaserver.repositories.InstitutionRepository;
 import com.example.donationdbjavaserver.repositories.DonorRepository;
 import com.example.donationdbjavaserver.repositories.ContactRepository;
