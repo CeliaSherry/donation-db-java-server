@@ -26,8 +26,8 @@ import com.example.donationdbjavaserver.repositories.DonorRepository;
 import com.example.donationdbjavaserver.repositories.InstitutionRepository;
 
 @RestController
-
-@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true", allowedHeaders = "*")
+@CrossOrigin(origins="https://lake-county-db.herokuapp.com", allowCredentials="true",allowedHeaders="*")
+//@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true", allowedHeaders = "*")
 public class DonorService {
 
   @Autowired
