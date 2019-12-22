@@ -20,7 +20,7 @@ import com.example.donationdbjavaserver.repositories.InstitutionRepository;
 import javax.persistence.criteria.CriteriaBuilder;
 
 @RestController
-@CrossOrigin(origins="https://lake-county-db.herokuapp.com", allowCredentials="true",allowedHeaders="*")
+@CrossOrigin(origins="https://lake-county-database.herokuapp.com", allowCredentials="true",allowedHeaders="*")
 //@CrossOrigin(origins="http://localhost:3000", allowCredentials="true",allowedHeaders="*")
 public class InstitutionService{
 	

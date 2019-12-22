@@ -15,7 +15,7 @@ import com.example.donationdbjavaserver.model.ThankYou;
 import com.example.donationdbjavaserver.repositories.ThankYouRepository;
 
 @RestController
-@CrossOrigin(origins="https://lake-county-db.herokuapp.com", allowCredentials="true",allowedHeaders="*")
+@CrossOrigin(origins="https://lake-county-database.herokuapp.com", allowCredentials="true",allowedHeaders="*")
 //@CrossOrigin(origins="http://localhost:3000", allowCredentials="true",allowedHeaders="*")
 public class ThankYouService{
 	
